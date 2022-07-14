@@ -3,9 +3,7 @@ package exampleapp.domain;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -19,7 +17,11 @@ public class Parent {
     @Column
     private String name;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "parent_id", referencedColumnName = "id", nullable = false)
+    @OneToMany(mappedBy = "parent", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Child> children = new HashSet<>();
+
+    public void addChild(Child child) {
+        child.setParent(this);
+        children.add(child);
+    }
 }

@@ -4,7 +4,6 @@ import exampleapp.domain.Child;
 import exampleapp.domain.Parent;
 import liquibase.repackaged.org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,11 +29,11 @@ class ParentRepositoryTest {
 
         Child childOne = new Child();
         childOne.setName("Child " + RandomUtils.nextLong());
-        parent.getChildren().add(childOne);
+        parent.addChild(childOne);
 
         Child childTwo = new Child();
         childTwo.setName("Child " + RandomUtils.nextLong());
-        parent.getChildren().add(childTwo);
+        parent.addChild(childTwo);
 
         parentRepository.save(parent);
 
@@ -68,7 +67,7 @@ class ParentRepositoryTest {
         // Append new
         Child newChild = new Child();
         newChild.setName(newChildName);
-        parent.getChildren().add(newChild);
+        parent.addChild(newChild);
 
         parentRepository.save(parent);
 
