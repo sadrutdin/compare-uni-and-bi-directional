@@ -50,7 +50,7 @@ class ParentRepositoryTest {
         String existChildName = "Exist child new name" + RandomUtils.nextLong();
         String newChildName = "New child name" + RandomUtils.nextLong();
 
-        Optional<Parent> parentOptional = parentRepository.findTopByOrderByIdDesc();
+        Optional<Parent> parentOptional = parentRepository.findFirstByOrderByIdDesc();
         assertTrue(parentOptional.isPresent());
 
         Parent parent = parentOptional.get();
@@ -80,6 +80,4 @@ class ParentRepositoryTest {
         assertTrue(parent.getChildren().stream().anyMatch(child -> child.getName().equals(existChildName)));
         assertTrue(parent.getChildren().stream().anyMatch(child -> child.getName().equals(newChildName)));
     }
-
-
 }
