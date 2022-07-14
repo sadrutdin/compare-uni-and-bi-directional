@@ -4,7 +4,6 @@ import exampleapp.domain.Child;
 import exampleapp.domain.Parent;
 import liquibase.repackaged.org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -51,7 +50,7 @@ class ParentRepositoryTest {
         String existChildName = "Exist child new name" + RandomUtils.nextLong();
         String newChildName = "New child name" + RandomUtils.nextLong();
 
-        Optional<Parent> parentOptional = parentRepository.findTopByOrderByIdDesc();
+        Optional<Parent> parentOptional = parentRepository.findFirstByOrderByIdDesc();
         assertTrue(parentOptional.isPresent());
 
         Parent parent = parentOptional.get();
@@ -70,7 +69,7 @@ class ParentRepositoryTest {
         newChild.setName(newChildName);
         parent.getChildren().add(newChild);
 
-        parentRepository.save(parent);
+        parent = parentRepository.save(parent);
 
         assertEquals(existParentName, parent.getName());
 
